@@ -27,11 +27,6 @@ namespace BaGet
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All;
-            });
-
             // TODO: Ideally we'd use:
             //
             //       services.ConfigureOptions<ConfigureBaGetOptions>();
