@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using static System.Net.WebRequestMethods;
 
 namespace BaGet
 {
@@ -28,6 +27,11 @@ namespace BaGet
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All;
+            });
+
             // TODO: Ideally we'd use:
             //
             //       services.ConfigureOptions<ConfigureBaGetOptions>();
@@ -97,7 +101,7 @@ namespace BaGet
                 app.UseStatusCodePages();
             }
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
+            app.UseForwardedHeaders();
             app.UsePathBase(options.PathBase);
 
             app.UseStaticFiles();
