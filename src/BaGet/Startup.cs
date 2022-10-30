@@ -83,15 +83,6 @@ namespace BaGet
         {
             var options = Configuration.Get<BaGetOptions>();
 
-
-            app.Map("/test", (x) =>
-            {
-                x.Use(async (context, next) =>
-                {
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(context.Request.Headers));
-                });
-            });
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
